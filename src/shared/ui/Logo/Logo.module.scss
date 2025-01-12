@@ -1,0 +1,66 @@
+/*************************************
+ * Font definition 
+ *************************************/
+@font-face {
+    font-family: "alinja";
+    src: url('./assets/fonts/Dancing_Script/static/DancingScript-Bold.ttf') format("truetype");
+    font-display: swap; // ensures text is visible while font is loading
+}
+
+/*************************************
+ * Logo Styles
+ *************************************/
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    padding: 1rem;
+
+    // Main text style
+    .mainText {
+        // Use your custom font
+        font-family: "alinja", cursive !important;
+        // Adjust font sizes/weights to your liking
+        font-size: 2.5rem;
+        font-weight: 400;
+        margin: 0;
+        color: #ffffff;
+        padding-top: 1.5rem;
+    }
+
+    // Mode text style
+    .mode {
+        font-size: 1rem;
+        color: #666;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    // Responsive breakpoints
+    // Example: for tablet and larger screens
+    @media (min-width: 768px) {
+        flex-direction: row;
+
+        .mainText {
+            font-size: 2rem;
+        }
+
+        .mode {
+            margin-top: 0; // reset top margin
+            font-size: 1.25rem;
+        }
+    }
+
+    // Example: for larger desktop screens
+    @media (min-width: 1024px) {
+        .mainText {
+            font-size: 3rem;
+        }
+
+        .mode {
+            font-size: 1rem;
+        }
+    }
+}

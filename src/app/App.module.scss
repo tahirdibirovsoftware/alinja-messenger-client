@@ -1,0 +1,27 @@
+:root {
+    --main-bg-color: #293241;
+    --main-text-color: #ffffff;
+    --base-spacing: 1rem;
+}
+
+.App {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    padding: var(--base-spacing);
+
+    /* Smooth colorful animation */
+    animation: colorful-bg-transition 20s infinite alternate;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
