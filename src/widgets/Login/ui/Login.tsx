@@ -3,6 +3,7 @@ import style from './Login.module.scss';
 import Password from 'antd/es/input/Password';
 import { useState } from 'react';
 import { Logo } from '../../../shared/ui/Logo/Logo';
+import { Link } from 'react-router-dom';
 
 const Login = (): JSX.Element => {
 
@@ -17,7 +18,11 @@ const Login = (): JSX.Element => {
             <Logo mainText="Alinja" mode="Beta" />
             <Input size='large' placeholder='Email' />
             <Password size='large' placeholder='Password' />
-            <Button type='primary' size='large' loading={isSending} onClick={apiHandler}>Login</Button>
+            <Button type='primary' size='large' loading={isSending} onClick={apiHandler}>Sign in</Button>
+            <div className={style.processSwitcher}>
+                <span>No account yet?</span>
+                <Link to='/register'>Click here to sign up</Link>
+            </div>
         </div>
     )
 }
