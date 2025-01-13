@@ -5,6 +5,23 @@
     padding: 0rem 2rem 5rem 2rem;
     border-radius: .5rem;
     width: 30%;
+
+    // Add validation styles while maintaining spacing
+    .errorMessage {
+        color: #ff4d4f;
+        font-size: 14px;
+        margin-top: -0.5rem;
+    }
+
+    .errorInput {
+        border-color: #ff4d4f !important;
+
+        &:hover,
+        &:focus {
+            border-color: #ff4d4f !important;
+            box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
+        }
+    }
 }
 
 .processSwitcher {
