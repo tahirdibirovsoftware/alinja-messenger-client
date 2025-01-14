@@ -1,13 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Input } from 'antd';
+import { Button, Input, message } from 'antd';
 import style from './Register.module.scss';
 import Password from 'antd/es/input/Password';
 import { Logo } from '../../../shared/ui/Logo/Logo';
-import { Link } from 'react-router-dom';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
 import { validationSchema } from '../config';
+import { authService } from '../../../shared/api/auth.service';
+import { useState } from 'react';
+import { generateRSAKeyPair } from '../../../shared/lib/crypto';
 
-// Define the form values interface
+const display = async () => {
+    console.log(await generateRSAKeyPair())
+}
+
+display()
+
+// Form values interface
 interface FormValues {
     email: string;
     password: string;
@@ -15,27 +24,73 @@ interface FormValues {
 }
 
 const Register = (): JSX.Element => {
-    // Set initial form values
+    const [messageApi, contextHolder] = message.useMessage();
+    const [isRegistering, setIsRegistering] = useState(false);
+    const navigate = useNavigate();
+
+    // Initial form values
     const initialValues: FormValues = {
         email: '',
         password: '',
         confirmPassword: '',
     };
 
-    // Handle form submission
+
+
+    // Temporary key pair generation for MVP
+    const generateKeyPair = async (): Promise<{ publicKey: string; privateKey: string }> => {
+        return {
+            publicKey: `-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PUBLIC KEY-----`,
+            privateKey: `-----BEGIN PRIVATE KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PRIVATE KEY-----`
+        };
+    };
+
     const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
+
         try {
-            console.log('Form values:', values);
-            // Add your API call here
-        } catch (error) {
-            console.error('Submission error:', error);
+            setIsRegistering(true);
+            const keyPair = await generateKeyPair();
+            const username = values.email.split('@')[0];
+
+            const registrationData = {
+                email: values.email,
+                password: values.password,
+                username,
+                publicKey: keyPair.publicKey
+            };
+
+            const response = await authService.register(registrationData);
+
+            // Store credentials securely
+            localStorage.setItem('accessToken', response.accessToken);
+            localStorage.setItem('encryptedPrivateKey', keyPair.privateKey);
+
+            messageApi.success({
+                content: 'Registration successful!',
+                duration: 2,
+                onClose: () => navigate('/')
+            });
+
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.message
+                ? (Array.isArray(error.response.data.message)
+                    ? error.response.data.message[0]
+                    : error.response.data.message)
+                : 'Registration failed. Please try again.';
+
+            messageApi.error({
+                content: errorMessage,
+                duration: 3
+            });
         } finally {
             setSubmitting(false);
+            setIsRegistering(false);
         }
     };
 
     return (
         <div className={style.registerContainer}>
+            {contextHolder}
             <Logo mainText="Alinja" mode="Beta" />
             <Formik
                 initialValues={initialValues}
@@ -43,12 +98,13 @@ const Register = (): JSX.Element => {
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, touched, errors }) => (
-                    <>
+                    <Form className={style.form}>
                         <Field
                             as={Input}
                             size="large"
                             name="email"
                             placeholder="Email"
+                            disabled={isRegistering}
                             className={touched.email && errors.email ? style.errorInput : ''}
                         />
                         <ErrorMessage
@@ -62,6 +118,7 @@ const Register = (): JSX.Element => {
                             size="large"
                             name="password"
                             placeholder="Password"
+                            disabled={isRegistering}
                             className={touched.password && errors.password ? style.errorInput : ''}
                         />
                         <ErrorMessage
@@ -75,6 +132,7 @@ const Register = (): JSX.Element => {
                             size="large"
                             name="confirmPassword"
                             placeholder="Confirm password"
+                            disabled={isRegistering}
                             className={
                                 touched.confirmPassword && errors.confirmPassword
                                     ? style.errorInput
@@ -91,11 +149,13 @@ const Register = (): JSX.Element => {
                             type="primary"
                             size="large"
                             htmlType="submit"
-                            loading={isSubmitting}
+                            loading={isSubmitting || isRegistering}
+                            disabled={isRegistering}
+                            block
                         >
-                            Sign up
+                            {isRegistering ? 'Creating Account...' : 'Sign up'}
                         </Button>
-                    </>
+                    </Form>
                 )}
             </Formik>
 

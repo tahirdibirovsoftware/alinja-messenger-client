@@ -1,14 +1,15 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Login } from '../widgets/Login'
-import { Register } from '../widgets/Register'
+import { LoginPage } from './Login'
+import { RegisterPage } from './Register'
+
 
 
 const Pages = (): JSX.Element => {
     return (
         <Routes>
             <Route path='/' index element={<Navigate to='/login' />}></Route>
-            <Route path='/login' index element={<Login />}></Route>
-            <Route path='/register' element={<Register />}></Route>
+            <Route path='/login' index element={<LoginPage />}></Route>
+            <Route path='/register' element={<RegisterPage />}></Route>
         </Routes>
     )
 }

@@ -5,8 +5,14 @@
     padding: 0rem 2rem 5rem 2rem;
     border-radius: .5rem;
     width: 30%;
+}
 
-    // Add validation styles while maintaining spacing
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
     .errorMessage {
         color: #ff4d4f;
         font-size: 14px;
@@ -29,7 +35,7 @@
     gap: 1rem;
 
     a {
-        color: orange;
+        color: #1677ff;
         text-decoration: none;
     }
 }
