@@ -8,13 +8,9 @@ import { Formik, Field, ErrorMessage, Form } from 'formik';
 import { validationSchema } from '../config';
 import { authService } from '../../../shared/api/auth.service';
 import { useState } from 'react';
-import { generateRSAKeyPair } from '../../../shared/lib/crypto';
+import { CryptoService } from '../../../shared/lib/crypto';
 
-const display = async () => {
-    console.log(await generateRSAKeyPair())
-}
 
-display()
 
 // Form values interface
 interface FormValues {
@@ -38,18 +34,18 @@ const Register = (): JSX.Element => {
 
 
     // Temporary key pair generation for MVP
-    const generateKeyPair = async (): Promise<{ publicKey: string; privateKey: string }> => {
-        return {
-            publicKey: `-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PUBLIC KEY-----`,
-            privateKey: `-----BEGIN PRIVATE KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PRIVATE KEY-----`
-        };
-    };
+    // const generateKeyPair = async (): Promise<{ publicKey: string; privateKey: string }> => {
+    //     return {
+    //         publicKey: `-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PUBLIC KEY-----`,
+    //         privateKey: `-----BEGIN PRIVATE KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PRIVATE KEY-----`
+    //     };
+    // };
 
     const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
 
         try {
             setIsRegistering(true);
-            const keyPair = await generateKeyPair();
+            const keyPair = await CryptoService.generateKeyPair();
             const username = values.email.split('@')[0];
 
             const registrationData = {

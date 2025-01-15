@@ -1,39 +1,89 @@
-/**
- * Generates an RSA key pair using the Web Crypto API in the browser.
- *
- * @returns A Promise that resolves to an object containing the public and private keys in JWK format.
- */
-export async function generateRSAKeyPair(): Promise<{ publicKey: JsonWebKey; privateKey: JsonWebKey }> {
-    // Define the RSA key generation parameters
-    const keyGenerationParams: RsaHashedKeyGenParams = {
-        name: "RSA-OAEP",           // Algorithm name for RSA encryption with Optimal Asymmetric Encryption Padding (OAEP)
-        modulusLength: 2048,        // Length of the RSA modulus in bits (commonly 2048 or 4096)
-        publicExponent: new Uint8Array([0x01, 0x00, 0x01]), // Public exponent (commonly 65537 represented in hex)
-        hash: { name: "SHA-256" },  // Hash function to use with RSA-OAEP
+// src/shared/crypto/crypto.service.ts
+export class CryptoService {
+    private static readonly ALGORITHM = {
+        name: 'RSA-OAEP',
+        modulusLength: 2048,
+        publicExponent: new Uint8Array([1, 0, 1]), // 65537
+        hash: 'SHA-256'
     };
 
-    // Generate the RSA key pair
-    const keyPair: CryptoKeyPair = await window.crypto.subtle.generateKey(
-        keyGenerationParams, // The key generation parameters defined above
-        true,                // Whether the key is extractable (can be exported)
-        ["encrypt", "decrypt"] // Usages for the keys
-    );
+    /**
+     * Generates a new RSA key pair and returns them in PEM format
+     */
+    static async generateKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
+        try {
+            // Generate the key pair
+            const keyPair = await window.crypto.subtle.generateKey(
+                this.ALGORITHM,
+                true, // extractable
+                ['encrypt', 'decrypt']
+            );
 
-    // Export the public key to JWK (JSON Web Key) format
-    const publicKeyJWK: JsonWebKey = await window.crypto.subtle.exportKey(
-        "jwk",    // Export format
-        keyPair.publicKey // The public key to export
-    );
+            // Export public key to format suitable for PEM
+            const exportedPublicKey = await window.crypto.subtle.exportKey(
+                'spki',
+                keyPair.publicKey
+            );
 
-    // Export the private key to JWK format
-    const privateKeyJWK: JsonWebKey = await window.crypto.subtle.exportKey(
-        "jwk",     // Export format
-        keyPair.privateKey // The private key to export
-    );
+            // Export private key to format suitable for PEM
+            const exportedPrivateKey = await window.crypto.subtle.exportKey(
+                'pkcs8',
+                keyPair.privateKey
+            );
 
-    // Return the key pair in JWK format
-    return {
-        publicKey: publicKeyJWK,
-        privateKey: privateKeyJWK,
-    };
+            // Convert the exported keys to PEM format
+            const publicKeyPem = this.arrayBufferToPem(
+                exportedPublicKey,
+                'PUBLIC KEY'
+            );
+            const privateKeyPem = this.arrayBufferToPem(
+                exportedPrivateKey,
+                'PRIVATE KEY'
+            );
+
+            return {
+                publicKey: publicKeyPem,
+                privateKey: privateKeyPem
+            };
+        } catch (error) {
+            console.error('Error generating key pair:', error);
+            throw new Error('Failed to generate encryption keys');
+        }
+    }
+
+    /**
+     * Converts an ArrayBuffer to PEM format
+     */
+    private static arrayBufferToPem(buffer: ArrayBuffer, type: string): string {
+        // Convert ArrayBuffer to Base64
+        const base64 = this.arrayBufferToBase64(buffer);
+
+        // Format as PEM
+        const pem = [
+            `-----BEGIN ${type}-----`,
+            ...this.chunks(base64, 64),
+            `-----END ${type}-----`
+        ].join('\n');
+
+        return pem;
+    }
+
+    /**
+     * Converts an ArrayBuffer to Base64 string
+     */
+    private static arrayBufferToBase64(buffer: ArrayBuffer): string {
+        const binary = String.fromCharCode(...new Uint8Array(buffer));
+        return window.btoa(binary);
+    }
+
+    /**
+     * Splits a string into chunks of specified size
+     */
+    private static chunks(str: string, size: number): string[] {
+        const chunks: string[] = [];
+        for (let i = 0; i < str.length; i += size) {
+            chunks.push(str.slice(i, i + size));
+        }
+        return chunks;
+    }
 }

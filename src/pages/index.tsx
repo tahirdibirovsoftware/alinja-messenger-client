@@ -7,9 +7,9 @@ import { RegisterPage } from './Register'
 const Pages = (): JSX.Element => {
     return (
         <Routes>
-            <Route path='/' index element={<Navigate to='/login' />}></Route>
-            <Route path='/login' index element={<LoginPage />}></Route>
-            <Route path='/register' element={<RegisterPage />}></Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     )
 }
