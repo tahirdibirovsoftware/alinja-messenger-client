@@ -1,25 +1,21 @@
-// src/features/SearchUser/ui/UserList.tsx
-import React from 'react';
+
 import { List } from 'antd';
-import style from './UserList.module.scss';
 import UserItem from './UserItem';
 import { useAppSelector } from '../../../app/store';
+import { UserSearchResult } from '../types';
+import style from './UserList.module.scss';
+
 
 const UserList = (): JSX.Element => {
-    const users = useAppSelector((state) => state.foundUsers.users);
+    const users: UserSearchResult[] = useAppSelector((state) => state.foundUsers.users);
 
     return (
         <List
-            className={style.searchResults}
+            className={style.userList}
             dataSource={users}
-            renderItem={(user) => (
-                <UserItem user={user} />
-            )}
+            renderItem={(user) => <UserItem user={user} />}
             locale={{
-                emptyText:
-                    users.length === 0
-                        ? 'Start typing to search for users'
-                        : 'No users found',
+                emptyText: users.length === 0 ? 'Start typing to search for users' : 'No users found',
             }}
         />
     );

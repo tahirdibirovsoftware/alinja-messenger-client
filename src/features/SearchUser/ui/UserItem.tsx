@@ -1,51 +1,29 @@
-import { List, Avatar, Button } from 'antd';
-import { UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { Avatar, Button } from 'antd';
 import style from './UserItem.module.scss';
+import { UserAddOutlined } from '@ant-design/icons';
 import { UserSearchResult } from '../types';
-
 
 interface UserItemProps {
     user: UserSearchResult;
 }
 
 const UserItem = ({ user }: UserItemProps): JSX.Element => {
-    const handleAddContact = () => {
-        console.log(`Add contact for user: ${user.id}`);
-    };
-
-    const handleCancelRequest = () => {
-        console.log(`Cancel contact request for user: ${user.id}`);
-    };
-
     return (
-        <List.Item
-            className={style.userItem}
-            actions={[
-                !user.isContact && !user.isPending && (
-                    <Button
-                        icon={<UserAddOutlined />}
-                        onClick={handleAddContact}
-                    >
-                        Add Contact
-                    </Button>
-                ),
-                user.isPending && (
-                    <Button
-                        icon={<CloseCircleOutlined />}
-                        danger
-                        onClick={handleCancelRequest}
-                    >
-                        Cancel Request
-                    </Button>
-                ),
-            ]}
-        >
-            <List.Item.Meta
-                avatar={<Avatar>{user.username[0].toUpperCase()}</Avatar>}
-                title={user.username}
-                description={user.email}
-            />
-        </List.Item>
+        <div className={style.userItem}>
+            <div className={style.profileInfo}>
+                <Avatar size={64}>{user.username[0].toUpperCase()}</Avatar>
+                <div className={style.userName}>{user.username}</div>
+                <div className={style.userEmail}>{user.email}</div>
+            </div>
+
+            <Button
+                type="primary"
+                icon={<UserAddOutlined />}
+                className={style.addButton}
+            >
+                Add Contact
+            </Button>
+        </div>
     );
 };
 

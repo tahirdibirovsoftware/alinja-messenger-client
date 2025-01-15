@@ -6,7 +6,7 @@ import style from './SearchUser.module.scss';
 import { userService } from '../../../shared/api/user.service';
 import { useAppDispatch } from '../../../app/store';
 import { getUsers } from '../model/usersSlice';
-import UserList from './UserList';
+
 
 const SearchUser = (): JSX.Element => {
     const [isSearching, setIsSearching] = useState(false);
@@ -31,6 +31,7 @@ const SearchUser = (): JSX.Element => {
         }
     }, 300);
 
+
     return (
         <div className={style.searchUserContainer}>
             {contextHolder}
@@ -43,7 +44,6 @@ const SearchUser = (): JSX.Element => {
                 className={style.searchInput}
             />
 
-            <UserList />
         </div>
     );
 };

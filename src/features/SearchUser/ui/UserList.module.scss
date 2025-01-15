@@ -1,19 +1,24 @@
-.searchResults {
-    width: 100%;
-    max-width: 800px;
-    padding: 8px;
+.userList {
+    width: 95%;
+    margin-top: 1rem;
+    display: flex;
+    padding-top: 0rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    // background-color: black;
+    gap: 12px;
+    /* Adds spacing between user items */
+
+    .ant-list {
+        width: 100%;
+    }
 
     .ant-list-item {
-        padding: 16px;
-        border-radius: 8px;
-        background-color: #ffffff;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        display: flex;
-        align-items: center;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
+        padding: 0;
+        /* Remove default padding to allow custom user item padding */
+        border: none;
+        /* Remove default borders */
     }
 }

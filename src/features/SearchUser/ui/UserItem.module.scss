@@ -1,29 +1,47 @@
 .userItem {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    // max-width: 600px;
+    text-align: center;
 
-    .ant-list-item-meta {
-        flex-grow: 1;
+    .profileInfo {
+        margin-bottom: 16px;
 
-        .ant-list-item-meta-title {
+        .ant-avatar {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 12px;
+        }
+
+        .userName {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
+            margin-bottom: 4px;
+            color: #333;
         }
 
-        .ant-list-item-meta-description {
+        .userEmail {
             font-size: 14px;
-            color: #888;
+            color: #555;
         }
     }
 
-    .ant-avatar {
-        margin-right: 16px;
-    }
+    .addButton {
+        width: 100%;
+        padding: 8px 16px;
+        border-radius: 6px;
+        background-color: #3d5a80;
+        color: #ffffff;
+        border: none;
 
-    .ant-btn {
-        font-size: 14px;
-        padding: 6px 16px;
-        border-radius: 4px;
+        &:hover {
+            background-color: #2d4a6a;
+        }
     }
 }
