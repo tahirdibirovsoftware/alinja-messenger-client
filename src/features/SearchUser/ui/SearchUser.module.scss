@@ -1,47 +1,14 @@
-// src/features/SearchUser/ui/SearchUser.module.scss
-
-.userSearchContainer {
-    width: 100%;
+.searchUserContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
     max-width: 800px;
     margin: 0 auto;
-    padding: 1rem;
 
     .searchInput {
-        margin-bottom: 1rem;
-    }
-
-    .searchResults {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-        :global {
-            .ant-list-item {
-                padding: 0.75rem 1rem;
-                transition: background 0.2s;
-
-                &:hover {
-                    background: #fafafa;
-                }
-
-                .ant-list-item-meta-title {
-                    margin-bottom: 0.25rem;
-                }
-            }
-
-            .ant-empty {
-                padding: 2rem 0;
-            }
-
-            .ant-spin-container {
-                min-height: 200px;
-            }
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .userSearchContainer {
-        padding: 0.75rem;
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 16px;
     }
 }

@@ -1,0 +1,28 @@
+.userItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .ant-list-item-meta {
+        flex-grow: 1;
+
+        .ant-list-item-meta-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .ant-list-item-meta-description {
+            font-size: 14px;
+            color: #888;
+        }
+    }
+
+    .ant-avatar {
+        margin-right: 16px;
+    }
+
+    .ant-btn {
+        font-size: 14px;
+        padding: 4px 12px;
+    }
+}
