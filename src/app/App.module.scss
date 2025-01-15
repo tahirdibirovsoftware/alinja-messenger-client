@@ -2,6 +2,7 @@
     --main-bg-color: #293241;
     --main-text-color: #ffffff;
     --base-spacing: 1rem;
+    --content-max-width: 800px;
 }
 
 .App {
@@ -14,14 +15,41 @@
     background-color: var(--main-bg-color);
     color: var(--main-text-color);
     padding: var(--base-spacing);
-
-    /* Smooth colorful animation */
     animation: colorful-bg-transition 20s infinite alternate;
 }
 
 .content {
     flex: 1;
+    width: 100%;
+    max-width: var(--content-max-width);
+    padding: var(--base-spacing);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Smooth colorful animation */
+@keyframes colorful-bg-transition {
+    0% {
+        background-color: #293241;
+    }
+
+    50% {
+        background-color: #3d5a80;
+    }
+
+    100% {
+        background-color: #98c1d9;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .App {
+        padding: 0.5rem;
+    }
+
+    .content {
+        padding: 0.5rem;
+    }
 }

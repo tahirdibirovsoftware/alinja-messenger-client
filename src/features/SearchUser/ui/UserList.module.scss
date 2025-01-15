@@ -1,21 +1,19 @@
 .searchResults {
     width: 100%;
     max-width: 800px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     padding: 8px;
 
     .ant-list-item {
-        padding: 12px 16px;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 16px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
 
         &:last-child {
-            border-bottom: none;
-        }
-
-        .ant-btn {
-            margin-left: 8px;
+            margin-bottom: 0;
         }
     }
 }

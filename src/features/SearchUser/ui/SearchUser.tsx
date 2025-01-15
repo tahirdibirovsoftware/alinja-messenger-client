@@ -39,7 +39,7 @@ const SearchUser = (): JSX.Element => {
                 size="large"
                 placeholder="Search by email or username"
                 loading={isSearching}
-                onChange={(e) => debouncedSearch(e.target.value)}
+                onChange={(e) => debouncedSearch(e.target.value.toLowerCase())}
                 className={style.searchInput}
             />
 
