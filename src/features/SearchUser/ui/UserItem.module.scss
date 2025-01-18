@@ -1,47 +1,9 @@
 .userItem {
     display: flex;
+    justify-content: space-between;
+    font-size: .7rem;
+    padding: .5rem;
     align-items: center;
-    padding: 16px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    // max-width: 600px;
-    text-align: center;
-
-    .profileInfo {
-        margin-bottom: 16px;
-
-        .ant-avatar {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 12px;
-        }
-
-        .userName {
-            font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 4px;
-            color: #333;
-        }
-
-        .userEmail {
-            font-size: 14px;
-            color: #555;
-        }
-    }
-
-    .addButton {
-        width: 100%;
-        padding: 8px 16px;
-        border-radius: 6px;
-        background-color: #3d5a80;
-        color: #ffffff;
-        border: none;
-
-        &:hover {
-            background-color: #2d4a6a;
-        }
-    }
+    width: 100%;
+    color: white;
 }

@@ -1,24 +1,6 @@
 .userList {
-    width: 95%;
-    margin-top: 1rem;
     display: flex;
-    padding-top: 0rem;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
-    // background-color: black;
-    gap: 12px;
-    /* Adds spacing between user items */
-
-    .ant-list {
-        width: 100%;
-    }
-
-    .ant-list-item {
-        padding: 0;
-        /* Remove default padding to allow custom user item padding */
-        border: none;
-        /* Remove default borders */
-    }
+    width: 100%;
 }

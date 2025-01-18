@@ -47,7 +47,7 @@ const Login = (): JSX.Element => {
             messageApi.success({
                 content: 'Login successful!',
                 duration: 2,
-                onClose: () => navigate('/')
+                onClose: () => navigate('/dashboard/users')
             });
 
         } catch (error: any) {
