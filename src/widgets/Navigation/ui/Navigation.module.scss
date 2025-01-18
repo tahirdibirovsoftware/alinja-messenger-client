@@ -4,12 +4,14 @@
     align-items: center;
     width: 100%;
     margin-top: 1rem;
+
+    a {
+        color: white;
+        font-size: 2rem;
+    }
 }
 
-a {
-    color: white;
-    font-size: 2rem;
-}
+
 
 a:focus {
     background-color: black;
