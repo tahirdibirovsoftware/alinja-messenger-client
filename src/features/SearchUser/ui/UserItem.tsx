@@ -5,9 +5,10 @@ import { UserSearchResult } from '../types';
 
 interface UserItemProps {
     user: UserSearchResult;
+    onAddContact: (email: string) => void; // Use email as the parameter
 }
 
-const UserItem = ({ user }: UserItemProps): JSX.Element => {
+const UserItem = ({ user, onAddContact }: UserItemProps): JSX.Element => {
     return (
         <div className={style.userItem}>
             <div className={style.userName}>{user.username}</div>
@@ -16,6 +17,7 @@ const UserItem = ({ user }: UserItemProps): JSX.Element => {
             <Button
                 type="primary"
                 icon={<UserAddOutlined />}
+                onClick={() => onAddContact(user.email)} // Pass user.email here
                 className={style.addButton}
             >
                 Add Contact

@@ -8,7 +8,7 @@ const Navigation = (): JSX.Element => {
         <div className={style.navigation}>
             <Link to={'/dashboard/users'}> <TeamOutlined /></Link>
             <Link to={'/dashboard/chats'}><MessageOutlined /></Link>
-            <Link to={'/dashboard/notifications'}><NotificationOutlined /><TeamOutlined /></Link>
+            <Link to={'/dashboard/notifications'}><NotificationOutlined /></Link>
         </div>
     )
 }

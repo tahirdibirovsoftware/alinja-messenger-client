@@ -32,15 +32,6 @@ const Register = (): JSX.Element => {
     };
 
 
-
-    // Temporary key pair generation for MVP
-    // const generateKeyPair = async (): Promise<{ publicKey: string; privateKey: string }> => {
-    //     return {
-    //         publicKey: `-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PUBLIC KEY-----`,
-    //         privateKey: `-----BEGIN PRIVATE KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1234567890\n-----END PRIVATE KEY-----`
-    //     };
-    // };
-
     const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
 
         try {
@@ -64,7 +55,7 @@ const Register = (): JSX.Element => {
             messageApi.success({
                 content: 'Registration successful!',
                 duration: 2,
-                onClose: () => navigate('/')
+                onClose: () => navigate('/login')
             });
 
         } catch (error: any) {

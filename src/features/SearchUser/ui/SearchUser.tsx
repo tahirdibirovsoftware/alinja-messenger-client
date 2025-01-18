@@ -1,4 +1,3 @@
-// src/features/SearchUser/ui/SearchUser.tsx
 import { useState } from 'react';
 import { Input, message } from 'antd';
 import debounce from 'lodash/debounce';
@@ -7,7 +6,6 @@ import { userService } from '../../../shared/api/user.service';
 import { useAppDispatch } from '../../../app/store';
 import { getUsers } from '../model/usersSlice';
 
-
 const SearchUser = (): JSX.Element => {
     const [isSearching, setIsSearching] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
@@ -15,14 +13,14 @@ const SearchUser = (): JSX.Element => {
 
     const debouncedSearch = debounce(async (searchTerm: string) => {
         if (!searchTerm) {
-            dispatch(getUsers([]));
+            dispatch(getUsers([])); // Clear users if input is empty
             return;
         }
 
         try {
             setIsSearching(true);
             const users = await userService.searchUsers(searchTerm);
-            dispatch(getUsers(users));
+            dispatch(getUsers(users)); // Dispatch found users to Redux store
         } catch (error) {
             messageApi.error('Failed to search for users');
             console.error('Search error:', error);
@@ -31,11 +29,9 @@ const SearchUser = (): JSX.Element => {
         }
     }, 300);
 
-
     return (
         <div className={style.searchUserContainer}>
             {contextHolder}
-
             <Input.Search
                 size="large"
                 placeholder="Search by email or username"
@@ -43,7 +39,6 @@ const SearchUser = (): JSX.Element => {
                 onChange={(e) => debouncedSearch(e.target.value.toLowerCase())}
                 className={style.searchInput}
             />
-
         </div>
     );
 };

@@ -2,11 +2,8 @@
 import { api } from './api.config';
 
 export const contactService = {
-    async sendContactRequest(userId: string): Promise<void> {
-        await api.post(`/contacts/request/${userId}`);
+    async sendContactRequest(email: string, initialMessage?: string): Promise<void> {
+        console.log({ email, initialMessage })
+        await api.post('/contacts', { email, initialMessage });
     },
-
-    async cancelContactRequest(userId: string): Promise<void> {
-        await api.delete(`/contacts/request/${userId}`);
-    }
 };
