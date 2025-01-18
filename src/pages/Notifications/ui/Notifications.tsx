@@ -47,14 +47,13 @@ const Notifications = (): JSX.Element => {
     useEffect(() => {
         const socket = getSocket();
 
+        // Fetch initial notifications
         fetchNotifications();
 
+        // Listen for real-time notifications
         if (socket) {
             socket.on('notification', (notification: Notification) => {
-                if (!notification.id) {
-                    console.warn('Invalid notification:', notification);
-                    return;
-                }
+                console.log('New notification received:', notification);
                 setNotifications((prev) => [notification, ...prev]);
             });
         }
@@ -65,6 +64,7 @@ const Notifications = (): JSX.Element => {
             }
         };
     }, []);
+
 
     const handleAccept = async (relationshipId: string) => {
         try {
@@ -80,7 +80,7 @@ const Notifications = (): JSX.Element => {
 
     const handleReject = async (relationshipId: string) => {
         try {
-            await api.put(`/contacts/${relationshipId}/status`, { status: 'rejected' });
+            await api.put(`/contacts/${relationshipId}/status`, { status: 'pending' });
             setNotifications((prev) =>
                 prev.filter((notification) => notification.id !== relationshipId)
             );
