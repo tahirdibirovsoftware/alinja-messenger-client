@@ -6,9 +6,9 @@ import { MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 const Navigation = (): JSX.Element => {
     return (
         <div className={style.navigation}>
-            <Link to={'dashboard/users'}> <TeamOutlined /></Link>
-            <Link to={'dashboard/chats'}><MessageOutlined /></Link>
-            <Link to={'dashboard/notifications'}><NotificationOutlined /><TeamOutlined /></Link>
+            <Link to={'/dashboard/users'}> <TeamOutlined /></Link>
+            <Link to={'/dashboard/chats'}><MessageOutlined /></Link>
+            <Link to={'/dashboard/notifications'}><NotificationOutlined /><TeamOutlined /></Link>
         </div>
     )
 }
