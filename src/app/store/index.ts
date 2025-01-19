@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import foundUsersReducer from '../../features/SearchUser/model/usersSlice';
 import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
+import contactsReducer from '../../pages/Users/model/contactSlice';
 
 export const store = configureStore({
     reducer: {
-        foundUsers: foundUsersReducer
+        foundUsers: foundUsersReducer,
+        contacts: contactsReducer,
     }
 });
 
