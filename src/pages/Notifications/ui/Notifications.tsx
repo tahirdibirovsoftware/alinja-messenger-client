@@ -80,7 +80,7 @@ const Notifications = (): JSX.Element => {
 
     const handleReject = async (relationshipId: string) => {
         try {
-            await api.put(`/contacts/${relationshipId}/status`, { status: 'pending' });
+            await api.delete(`/contacts/${relationshipId}/reject`);
             setNotifications((prev) =>
                 prev.filter((notification) => notification.id !== relationshipId)
             );
@@ -89,6 +89,7 @@ const Notifications = (): JSX.Element => {
             setError('Failed to reject contact request');
         }
     };
+
 
 
     if (loading) {

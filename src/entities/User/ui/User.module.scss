@@ -1,1 +1,7 @@
-.User {}
+@media screen and (min-width: 1024px) {
+
+    .userList {
+        display: flex;
+        flex-direction: row;
+    }
+}

@@ -19,6 +19,7 @@ const SearchUser = (): JSX.Element => {
 
         try {
             setIsSearching(true);
+
             const users = await userService.searchUsers(searchTerm);
             dispatch(getUsers(users)); // Dispatch found users to Redux store
         } catch (error) {
